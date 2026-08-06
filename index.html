@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mneme TV</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Mneme TV</h1>
+
+<select id="channelSelect">
+    <option value="https://tv.mne-me.net/stream/channels/14.m3u8">Channel 14</option>
+    <option value="https://tv.mne-me.net/stream/channels/33.m3u8">Channel 33</option>
+    <option value="https://tv.mne-me.net/stream/channels/42.m3u8">Channel 42</option>
+    <option value="https://tv.mne-me.net/stream/channels/43.m3u8">Channel 43</option>
+    <option value="https://tv.mne-me.net/stream/channels/809.m3u8">Channel 809</option>
+</select>
+
+<video
+    id="video"
+    controls
+    autoplay
+    muted
+></video>
+
+<script>
+const video = document.getElementById('video');
+const select = document.getElementById('channelSelect');
+
+function loadChannel(url) {
+    if (Hls.isSupported()) {
+        if (window.hls) window.hls.destroy();
+
+        const hls = new Hls();
+        window.hls = hls;
+
+        hls.loadSource(url);
+        hls.attachMedia(video);
+    } else {
+        video.src = url;
+    }
+}
+
+select.addEventListener("change", () => {
+    loadChannel(select.value);
+});
+
+loadChannel(select.value);
+</script>
+
+</body>
+</html>
