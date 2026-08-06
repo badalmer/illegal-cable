@@ -4,62 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mneme TV</title>
+<title>Illegal Cable</title>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<style>
-body {
-    font-family: sans-serif;
-    background: #000;
-    color: white;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
-video {
-    width: 100%;
-    background: black;
-}
-
-#guide {
-    margin-top: 25px;
-}
-
-.program {
-    background: #111;
-    border: 1px solid #333;
-    padding: 12px;
-    margin-bottom: 10px;
-}
-
-.current {
-    border-color: white;
-}
-
-.time {
-    color: #aaa;
-    font-size: 0.9rem;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<h1>Mneme TV</h1>
+<h1>Illegal Cable</h1>
 
 <select id="channelSelect">
     <option value="https://tv.mne-me.net/stream/channels/14.m3u8" data-id="14">BAKA</option>
@@ -72,10 +26,10 @@ video {
 <video id="video" controls autoplay playsinline></video>
 
 <h2>Guide</h2>
+
 <div id="guide">
 Loading guide...
 </div>
-
 
 <script>
 
@@ -85,153 +39,80 @@ const guide = document.getElementById("guide");
 
 let hls;
 
-
-// Load stream
 function loadChannel(url) {
-
     if (hls) {
         hls.destroy();
     }
-
     if (Hls.isSupported()) {
-
         hls = new Hls();
-
         hls.loadSource(url);
         hls.attachMedia(video);
-
-    } else {
-
-        video.src = url;
-
-    }
-}
-
-
-// Load XMLTV guide
-async function loadGuide() {
-
-    guide.innerHTML = "Loading guide...";
-
-    const channelID = select.options[
-        select.selectedIndex
-    ].dataset.id;
-
-
-    try {
-
-        const response = await fetch(
-            "https://tv.mne-me.net/api/xmltv.xml"
-        );
-
-        const xmlText = await response.text();
-
-        const xml = new DOMParser()
-            .parseFromString(xmlText, "text/xml");
-
-
-        const programs = [
-            ...xml.querySelectorAll("programme")
-        ]
-        .filter(program =>
-            program.getAttribute("channel") === channelID
-        );
-
-
-        guide.innerHTML = "";
-
-
-        if (programs.length === 0) {
-            guide.innerHTML = "No guide data found.";
-            return;
-        }
-
-
-        programs.forEach(program => {
-
-            const title =
-                program.querySelector("title")
-                ?.textContent || "Untitled";
-
-
-            const desc =
-                program.querySelector("desc")
-                ?.textContent || "";
-
-
-            const start =
-                formatTime(
-                    program.getAttribute("start")
-                );
-
-
-            const stop =
-                formatTime(
-                    program.getAttribute("stop")
-                );
-
-
-            guide.innerHTML += `
-                <div class="program">
-                    <div class="time">
-                        ${start} - ${stop}
-                    </div>
-
-                    <strong>
-                        ${title}
-                    </strong>
-
-                    <br>
-
-                    ${desc}
-                </div>
-            `;
-
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            video.play();
         });
-
-
-    } catch(error) {
-
-        console.error(error);
-        guide.innerHTML =
-            "Unable to load guide.";
-
+    } else {
+        video.src = url;
+        video.play();
     }
+}
+
+async function loadGuide() {
+    const channelID =
+        select.options[select.selectedIndex].dataset.id;
+    const response = await fetch(
+        "https://tv.mne-me.net/api/xmltv.xml"
+    );
+    const xmlText = await response.text();
+    const xml =
+        new DOMParser()
+        .parseFromString(xmlText, "text/xml");
+
+    const programs =
+        [...xml.querySelectorAll("programme")]
+        .filter(p =>
+            p.getAttribute("channel") === channelID
+        );
+
+    guide.innerHTML = "";
+
+    programs.forEach(program => {
+        const title =
+            program.querySelector("title")?.textContent
+            || "Untitled";
+        const desc =
+            program.querySelector("desc")?.textContent
+            || "";
+        guide.innerHTML += `
+            <div class="program">
+                <div class="time">
+                    ${formatTime(program.getAttribute("start"))}
+                    -
+                    ${formatTime(program.getAttribute("stop"))}
+                </div>
+                <strong>${title}</strong>
+                <br>
+                ${desc}
+            </div>
+        `;
+    });
 
 }
 
-
-// Convert XMLTV date
 function formatTime(value) {
-
     if (!value) return "";
-
     return value.substring(8,10)
         + ":"
         + value.substring(10,12);
-
 }
 
-
-// Events
-
-select.addEventListener(
-    "change",
-    () => {
-
-        loadChannel(select.value);
-        loadGuide();
-
-    }
-);
-
-
-// Start
+select.addEventListener("change", () => {
+    loadChannel(select.value);
+    loadGuide();
+});
 
 loadChannel(select.value);
 loadGuide();
-
 </script>
-
+    
 </body>
 </html>
