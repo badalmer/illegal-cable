@@ -7,7 +7,8 @@ body {
     padding: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: white;
 }
 
@@ -38,7 +39,9 @@ video {
 .program {
     background: #0000AA;
     color: white;
+
     border: 1px solid white;
+
     padding: 12px;
     margin-bottom: 10px;
 }
