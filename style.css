@@ -1,0 +1,20 @@
+body {
+    font-family: sans-serif;
+    background: #111;
+    color: white;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+video {
+    width: 100%;
+    margin-top: 20px;
+    background: black;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+}
