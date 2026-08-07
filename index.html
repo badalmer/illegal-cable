@@ -83,11 +83,15 @@ async function loadGuide() {
             `;
 
             if (program) {
-                const title =
-                    program.querySelector("title")?.textContent || "Unknown";
-
-                const desc =
+                let title =
+                    program.querySelector("title")?.textContent || "";
+                
+                let desc =
                     program.querySelector("desc")?.textContent || "";
+                
+                if (!title && !desc) {
+                    title = "Dead Air";
+                }
 
                 html += `
                     <div class="program-title">${title}</div>
