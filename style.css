@@ -8,45 +8,74 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
     color: white;
 }
+
 
 select {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
     margin-bottom: 20px;
+
     background: #0000AA;
     color: white;
+
     border: 2px solid white;
 }
+
 
 select option {
     background: #0000AA;
     color: white;
 }
 
+
 video {
     width: 100%;
     background: black;
+    border: 2px solid white;
 }
+
 
 #guide {
     margin-top: 25px;
 }
 
-.program {
-    background: #0000AA;
-    color: white;
 
-    border: 1px solid white;
+/* Each TV channel row */
 
-    padding: 12px;
-    margin-bottom: 10px;
+.channel {
+    border: 2px solid white;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
+
+.channel h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid white;
+}
+
+
+/* Individual programs */
+
+.program {
+    padding: 8px 0;
+    border-bottom: 1px solid white;
+}
+
+
+.program:last-child {
+    border-bottom: none;
+}
+
+
 .time {
+    display: inline-block;
+    width: 110px;
     color: white;
-    font-size: 0.9rem;
 }
