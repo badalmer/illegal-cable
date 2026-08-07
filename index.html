@@ -118,11 +118,13 @@ async function loadGuide() {
 
 function xmltvDate(value) {
     return new Date(
-        value.substring(0,4),
-        value.substring(4,6)-1,
-        value.substring(6,8),
-        value.substring(8,10),
-        value.substring(10,12)
+        Date.UTC(
+            value.substring(0,4),
+            value.substring(4,6)-1,
+            value.substring(6,8),
+            value.substring(8,10),
+            value.substring(10,12)
+        )
     );
 }
 
