@@ -22,21 +22,37 @@ video {
 }
 
 #guide-wrapper {
-    overflow-x: auto;
     border: 2px solid white;
 }
 
 #guide {
-    min-width: 1500px;
+    width: 100%;
 }
 
 .guide-row {
     display: grid;
-    grid-template-columns: 180px repeat(12,120px);
+    grid-template-columns: 180px 1fr;
     border-top: 1px solid white;
+}
+
+.channel-name {
+    padding: 10px;
+    font-weight: bold;
+    border-right: 1px solid white;
 }
 
 .program {
     padding: 10px;
-    border-right: 1px solid white;
+}
+
+.program-title {
+    font-weight: bold;
+}
+
+.time {
+    font-size: 0.85rem;
+}
+
+.description {
+    margin-top: 5px;
 }
