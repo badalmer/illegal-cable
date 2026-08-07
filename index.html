@@ -72,7 +72,25 @@ async function loadGuide() {
             const programs = [...xml.querySelectorAll("programme")]
                 .filter(p => (p.getAttribute("channel") || "").includes(id));
 
-            programs.slice(0, 12).forEach(program => {
+            const now = new Date();
+
+            programs
+            .filter(program => {
+                const stop = program.getAttribute("stop");
+                if (!stop) return false;
+            
+                const year = stop.substring(0,4);
+                const month = stop.substring(4,6) - 1;
+                const day = stop.substring(6,8);
+                const hour = stop.substring(8,10);
+                const minute = stop.substring(10,12);
+            
+                const endTime = new Date(year, month, day, hour, minute);
+            
+                return endTime > now;
+            })
+            .slice(0, 12)
+            .forEach(program => {
 
                 const title = program.querySelector("title")?.textContent || "Untitled";
 
