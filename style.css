@@ -2,14 +2,13 @@ body {
     font-family: sans-serif;
     background: #0000AA;
     color: white;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
 }
 
 h1,
-h2,
-h3 {
+h2 {
     color: white;
 }
 
@@ -40,42 +39,82 @@ video {
 }
 
 
-#guide {
-    margin-top: 25px;
-}
+/* Horizontal scrolling guide */
 
-
-/* Each TV channel row */
-
-.channel {
+#guide-wrapper {
+    overflow-x: auto;
     border: 2px solid white;
-    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+#guide {
+    min-width: 1500px;
+}
+
+
+/* Time header */
+
+.guide-header {
+    display: grid;
+    grid-template-columns: 180px repeat(12, 120px);
+
+    background: white;
+    color: #0000AA;
+
+    font-weight: bold;
+}
+
+
+.guide-header div {
     padding: 10px;
+    border-right: 1px solid #0000AA;
 }
 
 
-.channel h3 {
-    margin: 0 0 10px 0;
-    padding-bottom: 8px;
-    border-bottom: 1px solid white;
+/* Channel rows */
+
+.guide-row {
+
+    display: grid;
+    grid-template-columns: 180px repeat(12, 120px);
+
+    border-top: 1px solid white;
+
+    min-height: 70px;
 }
 
 
-/* Individual programs */
+.channel-name {
+
+    padding: 10px;
+
+    font-weight: bold;
+
+    border-right: 1px solid white;
+
+    display: flex;
+    align-items: center;
+}
+
 
 .program {
-    padding: 8px 0;
-    border-bottom: 1px solid white;
+
+    padding: 10px;
+
+    border-right: 1px solid white;
+
+    overflow: hidden;
+
+    white-space: nowrap;
 }
 
 
-.program:last-child {
-    border-bottom: none;
+.program-title {
+    font-weight: bold;
 }
 
 
 .time {
-    display: inline-block;
-    width: 110px;
-    color: white;
+    font-size: 0.8rem;
 }
