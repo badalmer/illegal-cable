@@ -12,10 +12,10 @@
 <h1>Illegal Cable</h1>
 
 <select id="channelSelect">
+    <option value="https://tv.mne-me.net/stream/channels/43.m3u8" data-id="43">SPACE: The Imagination Station</option>
     <option value="https://tv.mne-me.net/stream/channels/14.m3u8" data-id="14">BAKA</option>
     <option value="https://tv.mne-me.net/stream/channels/33.m3u8" data-id="33">FOX SUNDAYS</option>
     <option value="https://tv.mne-me.net/stream/channels/42.m3u8" data-id="42">EYE ON SPRINGFIELD</option>
-    <option value="https://tv.mne-me.net/stream/channels/43.m3u8" data-id="43">SPACE: The Imagination Station</option>
     <option value="https://tv.mne-me.net/stream/channels/809.m3u8" data-id="809">POO-HOUSE</option>
 </select>
 
@@ -53,10 +53,10 @@ async function loadGuide() {
             .parseFromString(await response.text(), "text/xml");
 
         const channels = {
+            "43": "SPACE: The Imagination Station",
             "14": "BAKA",
             "33": "FOX SUNDAYS",
             "42": "EYE ON SPRINGFIELD",
-            "43": "SPACE: The Imagination Station",
             "809": "POO-HOUSE"
         };
 
