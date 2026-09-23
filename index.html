@@ -63,33 +63,33 @@ async function loadGuide() {
         const now = new Date();
         let html = "";
 
-        // Object.entries(channels).forEach(([id, name]) => {
-
-        //     const program = [...xml.querySelectorAll("programme")]
-        //         .find(p => {
-        //             const channel = p.getAttribute("channel") || "";
-        //             if (!channel.includes(id)) return false;
-        //             //if (channel !== id) return false;
-
-        //             const start = xmltvDate(p.getAttribute("start"));
-        //             const stop = xmltvDate(p.getAttribute("stop"));
-
-        //             return now >= start && now <= stop;
-        //         });
-
         Object.entries(channels).forEach(([id, name]) => {
 
             const program = [...xml.querySelectorAll("programme")]
                 .find(p => {
                     const channel = p.getAttribute("channel") || "";
-        
-                    if (channel.split(".")[0] !== id) return false;
-        
+                    if (!channel.includes(id)) return false;
+                    //if (channel !== id) return false;
+
                     const start = xmltvDate(p.getAttribute("start"));
                     const stop = xmltvDate(p.getAttribute("stop"));
-        
+
                     return now >= start && now <= stop;
                 });
+
+        // Object.entries(channels).forEach(([id, name]) => {
+
+        //     const program = [...xml.querySelectorAll("programme")]
+        //         .find(p => {
+        //             const channel = p.getAttribute("channel") || "";
+        
+        //             if (channel.split(".")[0] !== id) return false;
+        
+        //             const start = xmltvDate(p.getAttribute("start"));
+        //             const stop = xmltvDate(p.getAttribute("stop"));
+        
+        //             return now >= start && now <= stop;
+        //         });
 
             html += `
             <div class="guide-row">
