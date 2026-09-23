@@ -68,7 +68,8 @@ async function loadGuide() {
             const program = [...xml.querySelectorAll("programme")]
                 .find(p => {
                     const channel = p.getAttribute("channel") || "";
-                    if (!channel.includes(id)) return false;
+                    //if (!channel.includes(id)) return false;
+                    if (channel !== id) return false;
 
                     const start = xmltvDate(p.getAttribute("start"));
                     const stop = xmltvDate(p.getAttribute("stop"));
