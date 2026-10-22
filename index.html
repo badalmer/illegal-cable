@@ -117,8 +117,8 @@ async function loadGuide() {
         guide.innerHTML = html;
 
     } catch(error) {
-        console.error(error);
-        guide.innerHTML = "Guide failed to load.";
+        console.error("Guide error:", error);
+        guide.textContent = "Guide failed to load: " + error.message;
     }
 }
 
