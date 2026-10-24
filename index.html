@@ -122,7 +122,6 @@ async function loadGuide() {
     }
 }
 
-
 function xmltvDate(value) {
     return new Date(
         Date.UTC(
@@ -137,7 +136,12 @@ function xmltvDate(value) {
 
 function formatTime(value) {
     if (!value) return "";
-    return value.substring(8,10) + ":" + value.substring(10,12);
+    return xmltvDate(value).toLocaleTimeString("en-CA", {
+        timeZone: "America/Toronto",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+    });
 }
 
 select.addEventListener("change", () => {
