@@ -49,7 +49,7 @@ function loadChannel(url) {
 
 async function loadGuide() {
     try {
-        const response = await fetch("https://tv.mne-me.net/api/xmltv.xml");
+        const response = await fetch("https://illegal-cable.brandon-dalmer.workers.dev/api/xmltv.xml");
         const xml = new DOMParser()
             .parseFromString(await response.text(), "text/xml");
 
